@@ -1,3 +1,5 @@
+import bloodbankImg from "./Bloodbank.png";
+
 export const projects = [
   {
     id: 1,
@@ -5,11 +7,9 @@ export const projects = [
     description:
       "A full-stack blood and plasma management platform that streamlines donor registration, blood inventory tracking, and emergency request handling between donors, hospitals, and blood banks.",
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT", "Tailwind CSS", "Docker"],
-    github: "#",
-    live: "#",
-    color: "from-red-500/20 to-pink-500/20",
-    accent: "#ef4444",
-    icon: "🩸",
+    github: "https://github.com/mnataraj2006/blood_bank-main-/tree/main",
+    live: "https://lifeshare-alpha.vercel.app/",
+    image: bloodbankImg,
   },
   {
     id: 2,
@@ -19,9 +19,7 @@ export const projects = [
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs", "JWT", "Power BI", "AWS"],
     github: "#",
     live: "#",
-    color: "from-purple-500/20 to-cyan-500/20",
-    accent: "#7c3aed",
-    icon: "🛒",
+    image: "/project2.png",   // ← drop your screenshot here
   },
   {
     id: 3,
@@ -29,10 +27,8 @@ export const projects = [
     description:
       "An interactive dashboard that extracts trekking data using web scraping and visualizes hike statistics, yearly trends, and comprehensive analytics.",
     techStack: ["Python", "FastAPI", "BeautifulSoup", "Pandas", "Chart.js", "HTML", "CSS", "JavaScript"],
-    github: "#",
-    live: "#",
-    color: "from-emerald-500/20 to-teal-500/20",
-    accent: "#10b981",
-    icon: "🏔️",
+    github: "https://github.com/mnataraj2006/SundayHikersAPI_Hiking/tree/main",
+    live: "https://sundayhikersapi-hiking.onrender.com/hikes",
+    image: "/project3.png",   // ← drop your screenshot here
   },
 ];

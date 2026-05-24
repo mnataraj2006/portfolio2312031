@@ -9,94 +9,115 @@ const navLinks = [
   { label: "About",          to: "about" },
   { label: "Skills",         to: "skills" },
   { label: "Projects",       to: "projects" },
+  { label: "Experience",     to: "experience" },
   { label: "Certifications", to: "certifications" },
   { label: "Contact",        to: "contact" },
 ];
 
 const Navbar = () => {
-  const [scrolled,       setScrolled]       = useState(false);
-  const [menuOpen,       setMenuOpen]       = useState(false);
-  const [activeSection,  setActiveSection]  = useState("hero");
+  const [scrolled,      setScrolled]      = useState(false);
+  const [menuOpen,      setMenuOpen]      = useState(false);
+  const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   return (
     <>
-      {/* ─── Desktop Navbar ─── */}
+      {/* ─── Navbar ─── */}
       <motion.nav
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -72, opacity: 0 }}
         animate={{ y: 0,   opacity: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-[rgba(15,23,42,0.90)] backdrop-blur-xl border-b border-white/[0.06] shadow-[0_4px_30px_rgba(0,0,0,0.4)]"
-            : "bg-transparent"
-        }`}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          background: scrolled ? "rgba(11,11,11,0.88)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
+        }}
       >
-        {/* Full-width inner: Logo | Nav | CTA — true justify-between */}
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between h-16 lg:h-[70px]">
+        <div className="max-w-[1400px] mx-auto px-6 lg:px-8 xl:px-12 flex items-center justify-between h-[68px]">
 
-          {/* ── Logo (left) ── */}
+          {/* ── Logo ── */}
           <Link to="hero" smooth duration={600} className="cursor-pointer flex-shrink-0">
-            <motion.div whileHover={{ scale: 1.04 }} className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-cyan-500 flex items-center justify-center font-bold text-white text-xs shadow-md shadow-purple-500/30">
+            <motion.div whileHover={{ opacity: 0.8 }} className="flex items-center gap-2.5">
+              <div
+                className="w-7 h-7 rounded-[6px] flex items-center justify-center font-bold text-white text-[0.65rem] tracking-wider flex-shrink-0"
+                style={{
+                  background: "#1A1A1A",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                }}
+              >
                 MN
               </div>
-              <span className="font-bold text-base tracking-tight hidden sm:block">
-                M.&nbsp;<span className="gradient-text">Nataraj</span>
+              <span className="font-semibold text-[0.85rem] tracking-tight text-white/80 hidden sm:block">
+                M. Nataraj
               </span>
             </motion.div>
           </Link>
 
-          {/* ── Nav links (center) ── */}
-          <div className="hidden lg:flex items-center gap-0.5">
+          {/* ── Nav Links — centered ── */}
+          <div className="hidden lg:flex items-center gap-3">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                smooth duration={600} offset={-75}
+                smooth duration={600} offset={-68}
                 spy
                 onSetActive={() => setActiveSection(link.to)}
                 className="cursor-pointer"
               >
-                <motion.span
-                  whileHover={{ y: -1 }}
-                  className={`px-3.5 py-1.5 rounded-lg text-[0.825rem] font-medium tracking-wide transition-all duration-200 block ${
-                    activeSection === link.to
-                      ? "text-purple-400 bg-purple-500/10"
-                      : "text-slate-400 hover:text-white hover:bg-white/[0.05]"
-                  }`}
+                <span
+                  className="relative px-3.5 py-1.5 text-[0.8rem] font-medium tracking-wide block transition-all duration-200 rounded-md"
+                  style={{
+                    color: activeSection === link.to ? "#F5F5F5" : "#A1A1AA",
+                  }}
+                  onMouseEnter={e => { if (activeSection !== link.to) e.currentTarget.style.color = "#A1A1AA"; }}
+                  onMouseLeave={e => { if (activeSection !== link.to) e.currentTarget.style.color = "#A1A1AA"; }}
                 >
                   {link.label}
-                </motion.span>
+                  {activeSection === link.to && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute bottom-0 left-3.5 right-3.5 h-px"
+                      style={{ background: "rgba(255,255,255,0.3)" }}
+                    />
+                  )}
+                </span>
               </Link>
             ))}
           </div>
 
-          {/* ── Resume + Hamburger (right) ── */}
+          {/* ── Right: Resume CTA + hamburger ── */}
           <div className="flex items-center gap-3 flex-shrink-0">
             <motion.a
               href="/resume.pdf"
               download
-              whileHover={{ scale: 1.04, y: -1 }}
+              whileHover={{ opacity: 0.8 }}
               whileTap={{ scale: 0.97 }}
-              className="hidden sm:flex items-center gap-1.5 px-4 py-2 text-[0.825rem] font-semibold rounded-full text-white bg-gradient-to-r from-purple-600 to-violet-600 shadow-md shadow-purple-500/25 hover:shadow-purple-500/45 transition-all duration-300"
+              className="hidden sm:flex items-center gap-1.5 px-4 py-1.5 text-[0.78rem] font-medium rounded-[6px] transition-all duration-200"
+              style={{
+                background: "#1A1A1A",
+                border: "1px solid rgba(255,255,255,0.10)",
+                color: "#A1A1AA",
+              }}
             >
-              <HiArrowDownTray size={13} />
+              <HiArrowDownTray size={12} />
               Resume
             </motion.a>
 
             <motion.button
               whileTap={{ scale: 0.88 }}
               onClick={() => setMenuOpen(!menuOpen)}
-              className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-white/[0.06] transition-colors"
+              className="lg:hidden p-1.5 rounded-[6px] transition-colors"
+              style={{ color: "#A1A1AA", border: "1px solid rgba(255,255,255,0.07)" }}
               aria-label="Toggle menu"
             >
-              {menuOpen ? <HiX size={21} /> : <HiMenuAlt3 size={21} />}
+              {menuOpen ? <HiX size={18} /> : <HiMenuAlt3 size={18} />}
             </motion.button>
           </div>
         </div>
@@ -106,25 +127,31 @@ const Navbar = () => {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -14 }}
+            initial={{ opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{   opacity: 0, y: -14 }}
-            transition={{ duration: 0.25 }}
-            className="fixed top-16 lg:top-[70px] left-0 right-0 z-40 bg-[rgba(15,23,42,0.97)] backdrop-blur-2xl border-b border-white/[0.06] lg:hidden"
+            exit={{   opacity: 0, y: -6 }}
+            transition={{ duration: 0.16 }}
+            className="fixed top-[68px] left-0 right-0 z-40 lg:hidden"
+            style={{
+              background: "rgba(11,11,11,0.96)",
+              backdropFilter: "blur(20px)",
+              borderBottom: "1px solid rgba(255,255,255,0.06)",
+            }}
           >
-            <div className="px-5 py-5 flex flex-col gap-1">
+            <div className="max-w-[1400px] mx-auto px-6 py-4 flex flex-col gap-0.5">
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.to}
-                  initial={{ opacity: 0, x: -16 }}
+                  initial={{ opacity: 0, x: -8 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.055 }}
+                  transition={{ delay: i * 0.04 }}
                 >
                   <Link
                     to={link.to}
-                    smooth duration={600} offset={-75}
+                    smooth duration={600} offset={-68}
                     onClick={() => setMenuOpen(false)}
-                    className="block px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/[0.05] text-sm font-medium transition-all cursor-pointer"
+                    className="block px-3 py-2.5 rounded-[6px] text-[0.85rem] font-medium transition-all cursor-pointer"
+                    style={{ color: "#A1A1AA" }}
                   >
                     {link.label}
                   </Link>
@@ -132,14 +159,19 @@ const Navbar = () => {
               ))}
 
               <motion.a
-                initial={{ opacity: 0, x: -16 }}
+                initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: navLinks.length * 0.055 }}
+                transition={{ delay: navLinks.length * 0.04 }}
                 href="/resume.pdf"
                 download
-                className="mt-3 flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-purple-600 to-violet-600 text-white rounded-xl font-semibold justify-center text-sm"
+                className="mt-3 flex items-center gap-2 px-3 py-2.5 text-[0.85rem] font-medium rounded-[6px] transition-all"
+                style={{
+                  background: "#1A1A1A",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  color: "#A1A1AA",
+                }}
               >
-                <HiArrowDownTray size={15} />
+                <HiArrowDownTray size={13} />
                 Download Resume
               </motion.a>
             </div>
@@ -151,3 +183,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

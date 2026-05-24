@@ -11,24 +11,21 @@ const BackToTop = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
   return (
     <AnimatePresence>
       {visible && (
         <motion.button
-          initial={{ opacity: 0, scale: 0.5, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.5, y: 20 }}
-          whileHover={{ y: -4 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={scrollToTop}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 12 }}
+          whileHover={{ y: -3 }}
+          whileTap={{ scale: 0.93 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="back-to-top"
           aria-label="Back to top"
+          style={{ color: "#A1A1AA" }}
         >
-          <HiArrowUp size={20} color="white" />
+          <HiArrowUp size={16} />
         </motion.button>
       )}
     </AnimatePresence>
@@ -36,3 +33,4 @@ const BackToTop = () => {
 };
 
 export default BackToTop;
+

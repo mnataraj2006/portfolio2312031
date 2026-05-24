@@ -1,161 +1,88 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import { fadeInUp, fadeInLeft, fadeInRight, staggerContainer, viewportConfig } from "../animations/variants";
+import { motion } from "framer-motion";
 
-const stats = [
-  { label: "Projects Completed",    value: "10+",  icon: "🚀" },
-  { label: "Technologies Learned",  value: "20+",  icon: "⚡" },
-  { label: "APIs Built",            value: "15+",  icon: "🔧" },
-  { label: "GitHub Commits",        value: "500+", icon: "💻" },
+const fade = {
+  hidden: { opacity: 0, y: 22 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const viewport = { once: true, amount: 0.18 };
+
+const principles = [
+  "Ship the smallest complete version.",
+  "Make the interface readable before it is decorative.",
+  "Treat APIs as product surfaces.",
 ];
-
-const highlights = [
-  "Full Stack Development",
-  "REST APIs",
-  "Scalable Systems",
-  "Software Engineering",
-  "Problem Solving",
-  "Clean Architecture",
-];
-
-const whyMe = [
-  { emoji: "🎯", title: "Clean Code Advocate",  desc: "Maintainable, readable, and well-documented code that scales." },
-  { emoji: "⚡", title: "Fast Learner",          desc: "Quick to adopt new technologies in an ever-evolving landscape." },
-  { emoji: "🤝", title: "Team Player",           desc: "Collaborative mindset with strong cross-functional communication." },
-];
-
-const StatCard = ({ stat }) => (
-  <motion.div
-    variants={fadeInUp}
-    whileHover={{ y: -5, scale: 1.03 }}
-    className="glass-card gradient-border p-4 text-center cursor-default"
-  >
-    <div className="text-2xl mb-1">{stat.icon}</div>
-    <div className="text-2xl font-bold gradient-text">{stat.value}</div>
-    <div className="text-slate-500 text-xs mt-0.5 leading-snug">{stat.label}</div>
-  </motion.div>
-);
 
 const About = () => (
-  /* Issue #1 — py-20 instead of py-24 to tighten top spacing  */
-  /* Issue #10 — slightly different bg to separate sections     */
-  <section id="about" className="py-20 relative bg-[#111827]/40">
-    {/* Ambient */}
-    <div className="absolute inset-0 -z-10 overflow-hidden">
-      <div
-        className="absolute top-1/2 left-1/4 w-80 h-80 rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(124,58,237,0.07) 0%, transparent 70%)", filter: "blur(60px)" }}
-      />
-    </div>
-
-    <div className="max-w-7xl mx-auto px-6 lg:px-10">
-      {/* Header */}
-      <motion.div
-        variants={fadeInUp}
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportConfig}
-        className="section-header mb-12"
-      >
-        <p className="text-purple-400 text-xs font-semibold tracking-widest uppercase mb-2">Get To Know</p>
-        {/* Issue #9 — tighter heading scale */}
-        <h2 className="text-4xl lg:text-5xl font-bold text-white">
-          About <span className="gradient-text">Me</span>
-        </h2>
-        <div className="section-divider" />
-      </motion.div>
-
-      {/* Issue #4 — 50/50 split (equal cols) */}
-      <div className="grid lg:grid-cols-2 gap-10 items-start">
-
-        {/* ── Left: Profile card ── */}
-        <motion.div
-          variants={fadeInLeft}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-        >
-          <div className="glass-card p-6 relative overflow-hidden h-full">
-            {/* Corner glow */}
-            <div
-              className="absolute top-0 right-0 w-32 h-32 rounded-bl-full pointer-events-none"
-              style={{ background: "radial-gradient(circle at top right, rgba(124,58,237,0.14), transparent)" }}
-            />
-
-            {/* Avatar row */}
-            <div className="flex items-center gap-4 mb-5">
-              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-600 to-cyan-500 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-purple-500/30 flex-shrink-0">
-                MN
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-white">M. Nataraj</h3>
-                <p className="text-purple-400 text-sm font-medium">Full Stack Developer</p>
-                <p className="text-slate-500 text-xs mt-0.5">CSE Student • India</p>
-              </div>
-            </div>
-
-            <p className="text-slate-300 text-sm leading-relaxed mb-4">
-              I am a <span className="text-purple-400 font-medium">Computer Science Engineering</span> student
-              passionate about Full Stack Development, backend systems, APIs, scalable applications, and modern
-              web technologies. I enjoy building real-world software products with clean UI, optimized backend
-              architecture, and responsive user experiences.
-            </p>
-
-            <p className="text-slate-500 text-sm leading-relaxed">
-              My goal is to craft solutions that are not just functional but elegant — products that delight
-              users and scale effortlessly under the hood.
-            </p>
-
-            {/* Highlights */}
-            <div className="mt-5 flex flex-wrap gap-1.5">
-              {highlights.map(h => <span key={h} className="tech-badge">{h}</span>)}
-            </div>
-
-            {/* Footer bar */}
-            <div className="mt-5 pt-4 border-t border-white/[0.06] flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-slate-400 text-xs">Open to new opportunities</span>
-              </div>
-              <span className="text-slate-600 text-xs">📍 India</span>
-            </div>
-          </div>
+  <section id="about" className="page-section bg-[#0c0c0d]">
+    <div className="section-inner">
+      <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.84fr_1.16fr] lg:gap-20">
+        <motion.div variants={fade} initial="hidden" whileInView="visible" viewport={viewport} className="lg:pt-20">
+          <p className="section-kicker">01 / About</p>
+          <div className="mt-14 hidden h-[22rem] w-[68%] border border-[var(--line-soft)] lg:block" />
         </motion.div>
 
-        {/* ── Right: Why me + Stats ── */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-          className="flex flex-col gap-5"
-        >
-          {/* Why me cards */}
-          <motion.div variants={fadeInRight}>
-            <h3 className="text-xl font-bold text-white mb-3">
-              Why work with <span className="gradient-text">me?</span>
-            </h3>
-            <div className="flex flex-col gap-3">
-              {whyMe.map(({ emoji, title, desc }) => (
-                <div key={title} className="flex gap-3 items-start glass-card p-4">
-                  <span className="text-xl flex-shrink-0">{emoji}</span>
-                  <div>
-                    <p className="font-semibold text-white text-sm">{title}</p>
-                    <p className="text-slate-400 text-xs mt-0.5 leading-relaxed">{desc}</p>
+        <div>
+          <motion.h2 variants={fade} initial="hidden" whileInView="visible" viewport={viewport} className="editorial-title max-w-[900px]">
+            I build from the interface inward, then make the system hold.
+          </motion.h2>
+
+          <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-[1fr_0.72fr] md:items-start">
+            <motion.div variants={fade} initial="hidden" whileInView="visible" viewport={viewport} className="space-y-8">
+              <p className="quiet-copy text-[var(--ink-soft)]">
+                I am a Computer Science Engineering student focused on full stack development,
+                backend systems, and product-minded implementation. I like turning ambiguous ideas
+                into interfaces with clear hierarchy, reliable data flow, and code that remains easy
+                to extend after the first release.
+              </p>
+              <p className="quiet-copy">
+                My work usually sits where UI craft meets system design: React applications, REST
+                APIs, authentication, database modeling, dashboards, and deployment workflows.
+              </p>
+            </motion.div>
+
+            <motion.aside
+              variants={fade}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewport}
+              className="relative border-l border-[var(--line)] pl-6 md:mt-28"
+            >
+              <p className="mono-label">Working posture</p>
+              <div className="mt-7 space-y-6">
+                {principles.map((item, index) => (
+                  <div key={item} className="grid grid-cols-[2.5rem_1fr] gap-4">
+                    <span className="text-xs font-bold text-[var(--ink-faint)]">0{index + 1}</span>
+                    <p className="text-sm leading-6 text-[var(--ink-soft)]">{item}</p>
                   </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+                ))}
+              </div>
+            </motion.aside>
+          </div>
 
-          {/* Stats grid — 2×2, compact */}
-          <motion.div variants={fadeInUp} className="grid grid-cols-2 gap-3">
-            {stats.map(stat => <StatCard key={stat.label} stat={stat} />)}
+          <motion.div
+            variants={fade}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewport}
+            className="mt-16 grid grid-cols-2 gap-px overflow-hidden border border-[var(--line-soft)] bg-[var(--line-soft)] md:grid-cols-4"
+          >
+            {[
+              ["5+", "projects built"],
+              ["15+", "technologies"],
+              ["300+", "commits"],
+            ].map(([value, label]) => (
+              <div key={label} className="bg-[#101011] p-6 md:p-7">
+                <p className="text-3xl font-bold tracking-[-0.04em] text-[var(--ink)]">{value}</p>
+                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">{label}</p>
+              </div>
+            ))}
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </div>
   </section>
 );
 
 export default About;
+

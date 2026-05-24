@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const ScrollProgress = () => {
@@ -18,3 +17,4 @@ const ScrollProgress = () => {
 };
 
 export default ScrollProgress;
+

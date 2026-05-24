@@ -11,32 +11,21 @@ import Certifications from "./sections/Certifications";
 import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 
-/* Issue #10 — Thin gradient divider between sections */
-const SectionSep = () => <div className="section-sep" />;
-
 function App() {
   return (
-    <div className="relative min-h-screen bg-[#0f172a] text-white overflow-x-hidden">
-      {/* ── Global UI ── */}
+    <div className="site-shell overflow-x-hidden">
       <CustomCursor />
       <ScrollProgress />
       <Navbar />
       <BackToTop />
 
-      {/* ── Page Sections ── */}
       <main>
         <Hero />
-        <SectionSep />
         <About />
-        <SectionSep />
         <Skills />
-        <SectionSep />
         <Projects />
-        <SectionSep />
         <Experience />
-        <SectionSep />
         <Certifications />
-        <SectionSep />
         <Contact />
       </main>
 
@@ -46,3 +35,4 @@ function App() {
 }
 
 export default App;
+

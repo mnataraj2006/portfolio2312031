@@ -1,180 +1,308 @@
 import { motion } from "framer-motion";
-import { FiGithub, FiExternalLink } from "react-icons/fi";
+import { FiExternalLink, FiGithub, FiArrowUpRight } from "react-icons/fi";
+import {
+  FaReact, FaNodeJs, FaDocker, FaPython, FaGitAlt, FaDatabase,
+} from "react-icons/fa";
+import {
+  SiMongodb, SiExpress, SiTailwindcss, SiJavascript,
+  SiMysql, SiPostman, SiFastapi,
+} from "react-icons/si";
 import { projects } from "../data/projects";
-import { fadeInUp, staggerContainer, viewportConfig } from "../animations/variants";
 
-const ProjectCard = ({ project }) => {
+/* ── Animations ── */
+const fade = {
+  hidden:  { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+};
+const viewport = { once: true, amount: 0.1 };
+
+/* ── Icon map (reused from Skills) ── */
+const ICON_MAP = {
+  "React.js":    { Icon: FaReact,       color: "rgba(97,218,251,0.65)" },
+  "Node.js":     { Icon: FaNodeJs,      color: "rgba(104,160,99,0.7)"  },
+  "Express.js":  { Icon: SiExpress,     color: "rgba(200,200,200,0.5)" },
+  "MongoDB":     { Icon: SiMongodb,     color: "rgba(71,162,72,0.7)"   },
+  "Tailwind CSS":{ Icon: SiTailwindcss, color: "rgba(56,189,248,0.65)" },
+  "Docker":      { Icon: FaDocker,      color: "rgba(29,99,237,0.65)"  },
+  "JWT":         { Icon: FaDatabase,    color: "rgba(180,180,180,0.5)" },
+  "REST APIs":   { Icon: FaDatabase,    color: "rgba(180,180,180,0.5)" },
+  "JavaScript":  { Icon: SiJavascript,  color: "rgba(247,223,30,0.7)"  },
+  "Python":      { Icon: FaPython,      color: "rgba(55,118,171,0.7)"  },
+  "FastAPI":     { Icon: SiFastapi,     color: "rgba(0,188,150,0.65)"  },
+  "MySQL":       { Icon: SiMysql,       color: "rgba(0,117,143,0.7)"   },
+  "Postman":     { Icon: SiPostman,     color: "rgba(255,108,55,0.7)"  },
+  "Git":         { Icon: FaGitAlt,      color: "rgba(240,80,50,0.7)"   },
+};
+
+/* ── Tech chip ── */
+const Chip = ({ name }) => {
+  const entry = ICON_MAP[name];
   return (
-    /* Issue #6 — h-full ensures all cards in the row stretch equally */
-    <motion.div
-      variants={fadeInUp}
-      whileHover={{ y: -8 }}
-      className="group relative glass-card overflow-hidden rounded-2xl flex flex-col h-full"
-      style={{ transition: "transform 0.3s ease, box-shadow 0.3s ease" }}
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[0.7rem] font-medium"
+      style={{
+        background: "rgba(255,255,255,0.04)",
+        border: "1px solid rgba(255,255,255,0.08)",
+        color: "#A1A1AA",
+      }}
     >
-      {/* Gradient top bar */}
-      <div className={`h-1 w-full bg-gradient-to-r ${project.color.replace('/20', '')} opacity-80`} />
+      {entry && <entry.Icon size={10} style={{ color: entry.color, flexShrink: 0 }} />}
+      {name}
+    </span>
+  );
+};
 
-      {/* Project Image Placeholder */}
+/* ── Image placeholder (shown when no image available) ── */
+const ImagePlaceholder = ({ title }) => (
+  <div
+    className="w-full h-full flex flex-col items-center justify-center gap-4 select-none"
+    style={{ background: "#0F0F0F" }}
+  >
+    {/* Subtle grid */}
+    <div
+      className="absolute inset-0 opacity-[0.03]"
+      style={{
+        backgroundImage:
+          "linear-gradient(rgba(255,255,255,1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,1) 1px,transparent 1px)",
+        backgroundSize: "36px 36px",
+      }}
+    />
+    <div className="relative text-center space-y-3">
       <div
-        className={`relative h-48 bg-gradient-to-br ${project.color} flex items-center justify-center overflow-hidden`}
+        className="mx-auto w-12 h-12 rounded-2xl flex items-center justify-center"
+        style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)" }}
       >
-        {/* Grid lines overlay */}
-        <div className="absolute inset-0 opacity-10"
-          style={{
-            backgroundImage: "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "30px 30px",
-          }}
-        />
-        {/* Icon */}
-        <motion.span
-          initial={{ scale: 1 }}
-          whileHover={{ scale: 1.2, rotate: 10 }}
-          className="text-7xl z-10 drop-shadow-2xl"
-        >
-          {project.icon}
-        </motion.span>
-
-        {/* Hover overlay */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-          className="absolute inset-0 flex items-center justify-center gap-4 bg-black/50 backdrop-blur-sm z-20"
-        >
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-white text-sm font-medium hover:bg-white/20 transition-all"
-            id={`project-github-${project.id}`}
-          >
-            <FiGithub size={14} /> GitHub
-          </a>
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-white text-sm font-medium transition-all"
-            style={{ background: `linear-gradient(135deg, ${project.accent}, rgba(6,182,212,0.8))` }}
-            id={`project-live-${project.id}`}
-          >
-            <FiExternalLink size={14} /> Live Demo
-          </a>
-        </motion.div>
+        <FiArrowUpRight size={20} style={{ color: "#3F3F46" }} />
       </div>
+      <p className="text-xs font-medium tracking-wide" style={{ color: "#3F3F46" }}>
+        Preview coming soon
+      </p>
+    </div>
+  </div>
+);
 
-      {/* Content — Issue #6: flex-col + justify-between keeps buttons at bottom */}
-      <div className="p-5 flex flex-col flex-1 justify-between gap-4">
-        {/* Top block: title + description */}
-        <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-2">
-            <span className="text-base">{project.icon}</span>
-            <h3 className="font-bold text-white text-base leading-snug group-hover:text-purple-400 transition-colors">
+/* ── Project card ── */
+const ProjectCard = ({ project, index }) => {
+  const isEven = index % 2 === 0;
+
+  return (
+    <motion.article
+      variants={fade}
+      initial="hidden"
+      whileInView="visible"
+      viewport={viewport}
+      className="group relative overflow-hidden rounded-3xl"
+      style={{
+        background: "rgba(255,255,255,0.018)",
+        border: "1px solid rgba(255,255,255,0.07)",
+        minHeight: "300px",
+        transition: "border-color 0.3s ease",
+      }}
+      whileHover={{ borderColor: "rgba(255,255,255,0.13)" }}
+    >
+      <div
+        className={`grid grid-cols-1 h-full md:grid-cols-[1fr_1.15fr] ${
+          !isEven ? "md:grid-cols-[1.15fr_1fr]" : ""
+        }`}
+      >
+        {/* ── LEFT: Content (or right if odd) ── */}
+        {!isEven && (
+          <div className="relative overflow-hidden rounded-tl-3xl rounded-bl-3xl min-h-[280px] md:min-h-0">
+            <ProjectImage project={project} />
+          </div>
+        )}
+
+        {/* ── Details panel ── */}
+        <div className="flex flex-col justify-between p-6 lg:p-7">
+          <div className="space-y-6">
+            {/* Label */}
+            <div className="flex items-center gap-3">
+              <span
+                className="text-[0.58rem] font-bold tracking-[0.22em] uppercase"
+                style={{ color: "#A1A1AA" }}
+              >
+                Project {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="h-px flex-1" style={{ background: "rgba(255,255,255,0.05)" }} />
+            </div>
+
+            {/* Title */}
+            <h3
+              className="font-bold tracking-tight leading-snug"
+              style={{
+                fontSize: "clamp(1.2rem, 2.2vw, 1.65rem)",
+                color: "#F5F5F5",
+              }}
+            >
               {project.title}
             </h3>
+
+            {/* Description */}
+            <p
+              className="text-sm leading-[1.85]"
+              style={{ color: "#A1A1AA", maxWidth: "44ch" }}
+            >
+              {project.description}
+            </p>
+
+            {/* Tech chips */}
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.map((t) => (
+                <Chip key={t} name={t} />
+              ))}
+            </div>
           </div>
-          {/* Issue #6 — description in its own block, min-h so shorter ones don't collapse */}
-          <p className="text-slate-400 text-sm leading-relaxed min-h-[72px]">
-            {project.description}
-          </p>
-          {/* Tech Stack */}
-          <div className="flex flex-wrap gap-1.5">
-            {project.techStack.map(tech => (
-              <span key={tech} className="tech-badge text-[0.68rem] px-2 py-0.5">{tech}</span>
-            ))}
+
+          {/* CTA buttons */}
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            {project.live && project.live !== "#" && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                id={`project-live-${project.id}`}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200"
+                style={{
+                  background: "#F5F5F5",
+                  color: "#0A0A0A",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = "#FFFFFF"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "#F5F5F5"; }}
+              >
+                Live Demo
+                <FiExternalLink size={13} />
+              </a>
+            )}
+            {project.github && project.github !== "#" && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                id={`project-github-${project.id}`}
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-200"
+                style={{
+                  background: "transparent",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "#A1A1AA",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.25)";
+                  e.currentTarget.style.color = "#F5F5F5";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.borderColor = "rgba(255,255,255,0.12)";
+                  e.currentTarget.style.color = "#A1A1AA";
+                }}
+              >
+                <FiGithub size={13} />
+                GitHub
+              </a>
+            )}
           </div>
         </div>
 
-        {/* Buttons — always at bottom via justify-between on parent */}
-        <div className="flex gap-3">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border border-white/10 text-slate-300 hover:border-purple-500/50 hover:text-purple-400 text-sm font-medium transition-all duration-300"
-          >
-            <FiGithub size={14} /> Code
-          </a>
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-white text-sm font-medium transition-all duration-300 hover:opacity-90"
-            style={{ background: `linear-gradient(135deg, #7c3aed, ${project.accent})` }}
-          >
-            <FiExternalLink size={14} /> Demo
-          </a>
-        </div>
+        {/* ── RIGHT: Image panel (even cards) ── */}
+        {isEven && (
+          <div className="relative overflow-hidden min-h-[280px] md:min-h-0 rounded-tr-3xl rounded-br-3xl">
+            <ProjectImage project={project} />
+          </div>
+        )}
       </div>
-    </motion.div>
+    </motion.article>
   );
 };
 
-const Projects = () => {
-  return (
-    /* Issue #10 — alternate bg; issue #1 — reduced py */
-    <section id="projects" className="py-20 relative bg-[#111827]/30">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute bottom-0 left-1/3 w-[600px] h-[400px] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(124,58,237,0.06) 0%, transparent 70%)", filter: "blur(80px)" }}
+/* ── Image panel ── */
+const ProjectImage = ({ project }) => (
+  <div className="relative w-full h-full overflow-hidden" style={{ minHeight: "300px" }}>
+    {project.image ? (
+      <>
+        <img
+          src={project.image}
+          alt={`${project.title} preview`}
+          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+          onError={e => { e.currentTarget.style.display = "none"; }}
         />
-      </div>
+        {/* Left gradient fade into card */}
+        <div
+          className="absolute inset-y-0 left-0 w-24 pointer-events-none"
+          style={{ background: "linear-gradient(to right, rgba(13,13,14,0.9), transparent)" }}
+        />
+        {/* Bottom gradient */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-20 pointer-events-none"
+          style={{ background: "linear-gradient(to top, rgba(13,13,14,0.6), transparent)" }}
+        />
+        {/* Subtle dark overlay */}
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "rgba(0,0,0,0.18)" }} />
+      </>
+    ) : (
+      <ImagePlaceholder title={project.title} />
+    )}
+  </div>
+);
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
-        {/* Header */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-          className="text-center mb-10"
-        >
-          <p className="text-purple-400 text-xs font-semibold tracking-widest uppercase mb-2">My Work</p>
-          {/* Issue #9 — reduced heading */}
-          <h2 className="text-4xl lg:text-5xl font-bold text-white">Featured <span className="gradient-text">Projects</span></h2>
-          <div className="section-divider" />
-          <p className="text-slate-500 text-sm mt-3 max-w-md mx-auto">
-            Real-world applications built with modern technologies and best practices.
-          </p>
-        </motion.div>
+/* ── Section ── */
+const Projects = () => (
+  <section
+    id="projects"
+    className="py-24 lg:py-28"
+    style={{ background: "#0D0D0E" }}
+  >
+    <div className="max-w-[1400px] mx-auto px-6 lg:px-8 xl:px-12">
 
-        {/* Projects Grid */}
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-          /* Issue #6 — items-stretch so all cards in each row grow equally */
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch"
-        >
-          {projects.map((project, i) => (
-            <ProjectCard key={project.id} project={project} index={i} />
-          ))}
-        </motion.div>
-
-        {/* GitHub CTA */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportConfig}
-          className="text-center mt-10"
-        >
-          <a
-            href="https://github.com/mnataraj2006"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:text-white hover:bg-purple-600/20 hover:border-purple-500/60 font-semibold transition-all duration-300"
-            id="view-all-github"
+      {/* Header */}
+      <motion.div
+        variants={fade}
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewport}
+        className="flex items-end justify-between gap-6 flex-wrap mb-14"
+      >
+        <div>
+          <div className="flex items-center gap-4 mb-5">
+            <span
+              className="text-[0.6rem] font-bold tracking-[0.22em] uppercase"
+              style={{ color: "#A1A1AA" }}
+            >
+              03 / Work
+            </span>
+            <div className="h-px w-12" style={{ background: "rgba(255,255,255,0.05)" }} />
+          </div>
+          <h2
+            className="font-bold tracking-[-0.03em] leading-none"
+            style={{ fontSize: "clamp(1.8rem, 3.8vw, 3rem)", color: "#F5F5F5" }}
           >
-            <FiGithub size={18} />
-            View All Projects on GitHub
-          </a>
-        </motion.div>
+            Selected
+            <span style={{ color: "#3F3F46" }}> Projects</span>
+          </h2>
+        </div>
+
+        <a
+          href="https://github.com/mnataraj2006"
+          target="_blank"
+          rel="noopener noreferrer"
+          id="view-all-github"
+          className="hidden md:inline-flex items-center gap-2 text-xs font-medium transition-colors duration-200"
+          style={{ color: "#A1A1AA" }}
+          onMouseEnter={e => e.currentTarget.style.color = "#F5F5F5"}
+          onMouseLeave={e => e.currentTarget.style.color = "#A1A1AA"}
+        >
+          <FiGithub size={13} />
+          All on GitHub
+          <FiArrowUpRight size={12} />
+        </a>
+      </motion.div>
+
+      {/* Cards — vertical stack */}
+      <div className="flex flex-col gap-5">
+        {projects.map((project, index) => (
+          <ProjectCard key={project.id} project={project} index={index} />
+        ))}
       </div>
-    </section>
-  );
-};
+
+    </div>
+  </section>
+);
 
 export default Projects;
