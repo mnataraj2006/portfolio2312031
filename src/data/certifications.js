@@ -1,22 +1,6 @@
 export const certifications = [
   {
     id: 1,
-    title: "Full Stack Web Development",
-    platform: "Coursera",
-    date: "2024",
-    color: "from-blue-500 to-cyan-500",
-    link: null,
-  },
-  {
-    id: 2,
-    title: "React - The Complete Guide",
-    platform: "Udemy",
-    date: "2024",
-    color: "from-purple-500 to-pink-500",
-    link: null,
-  },
-  {
-    id: 3,
     title: "Technical English For Engineers",
     platform: "NPTEL",
     date: "2023",
@@ -24,7 +8,7 @@ export const certifications = [
     link: "https://drive.google.com/file/d/1eMQUhszJ7-wdaLZSzm1RY2RJnsNiuYPc/view?usp=sharing",
   },
   {
-    id: 4,
+    id: 2,
     title: "The Joy of Computing using Python",
     platform: "NPTEL",
     date: "2024",
@@ -32,7 +16,7 @@ export const certifications = [
     link: "https://drive.google.com/file/d/1j6UP4sUOzAupNaKlDzwmcflnQVR8nHYN/view?usp=sharing",
   },
   {
-    id: 5,
+    id: 3,
     title: "MongoDB Basics",
     platform: "MongoDB",
     date: "2024",
@@ -40,7 +24,7 @@ export const certifications = [
     link: "https://drive.google.com/file/d/1AZQ6Fxcw6rviaEGxsiz_hfpIOSkU8Lvy/view?usp=sharing",
   },
   {
-    id: 6,
+    id: 4,
     title: "SnowPRO Associate",
     platform: "Snowflake",
     date: "2026",
@@ -48,7 +32,7 @@ export const certifications = [
     link: "https://drive.google.com/file/d/1cykdW-qUEcDWbl1CCkBg2gOcSm46t0sn/view?usp=sharing",
   },
   {
-    id: 7,
+    id: 5,
     title: "Cloud Computing",
     platform: "NPTEL",
     date: "2026",
@@ -56,7 +40,7 @@ export const certifications = [
     link: "https://drive.google.com/file/d/1iZyPwPZSrWJqbH010EwROsAoNu6ysl_e/view?usp=sharing",
   },
   {
-    id: 8,
+    id: 6,
     title: "Big Data Analytics",
     platform: "Infosys SpringBoard",
     date: "2026",
