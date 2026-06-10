@@ -1,5 +1,5 @@
 import bloodbankImg from "./Bloodbank.png";
-
+import MultiDomain from "./MultiDomain.png";
 export const projects = [
   {
     id: 1,
@@ -17,9 +17,9 @@ export const projects = [
     description:
       "A scalable service marketplace connecting customers with service providers, including booking management, real-time tracking, feedback systems, and analytics dashboards.",
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "REST APIs", "JWT", "Power BI", "AWS"],
-    github: "#",
-    live: "#",
-    image: "/project2.png",   // ← drop your screenshot here
+    github: "https://github.com/mnataraj2006/MultiDomain-Platform.git",
+    live: "https://multi-domain-platform.vercel.app/",
+    image: MultiDomain,
   },
   {
     id: 3,
@@ -29,6 +29,6 @@ export const projects = [
     techStack: ["Python", "FastAPI", "BeautifulSoup", "Pandas", "Chart.js", "HTML", "CSS", "JavaScript"],
     github: "https://github.com/mnataraj2006/SundayHikersAPI_Hiking/tree/main",
     live: "https://sundayhikersapi-hiking.onrender.com/hikes",
-    image: "/project3.png",   // ← drop your screenshot here
+    image: null,
   },
 ];

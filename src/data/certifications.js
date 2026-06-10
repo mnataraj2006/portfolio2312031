@@ -5,15 +5,15 @@ export const certifications = [
     platform: "Coursera",
     date: "2024",
     color: "from-blue-500 to-cyan-500",
-    link: "#",
+    link: null,
   },
   {
     id: 2,
-    title: "React — The Complete Guide",
+    title: "React - The Complete Guide",
     platform: "Udemy",
     date: "2024",
     color: "from-purple-500 to-pink-500",
-    link: "#",
+    link: null,
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ export const certifications = [
     platform: "Udemy",
     date: "2023",
     color: "from-emerald-500 to-teal-500",
-    link: "#",
+    link: null,
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ export const certifications = [
     platform: "Udemy",
     date: "2023",
     color: "from-orange-500 to-red-500",
-    link: "#",
+    link: null,
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ export const certifications = [
     platform: "IBM / Coursera",
     date: "2023",
     color: "from-yellow-500 to-amber-500",
-    link: "#",
+    link: null,
   },
   {
     id: 6,
@@ -45,6 +45,6 @@ export const certifications = [
     platform: "AWS / Coursera",
     date: "2024",
     color: "from-indigo-500 to-violet-500",
-    link: "#",
+    link: null,
   },
 ];

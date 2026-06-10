@@ -1,5 +1,6 @@
 import { Link } from "react-scroll";
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { profile } from "../data/profile";
 
 const quickLinks = [
   ["Home", "hero"],
@@ -18,7 +19,7 @@ const Footer = () => {
       <div className="section-inner">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_auto_auto] md:items-start">
           <div>
-            <p className="text-2xl font-bold tracking-[-0.04em] text-[var(--ink)]">M. Nataraj</p>
+            <p className="text-2xl font-bold tracking-[-0.04em] text-[var(--ink)]">{profile.name}</p>
             <p className="mt-3 max-w-[360px] text-sm leading-6 text-[var(--ink-muted)]">
               Full stack developer building thoughtful interfaces, APIs, and product systems.
             </p>
@@ -34,9 +35,9 @@ const Footer = () => {
 
           <div className="flex gap-3 md:justify-end">
             {[
-              { label: "GitHub", href: "https://github.com/mnataraj2006", icon: FiGithub },
-              { label: "LinkedIn", href: "https://linkedin.com/in/mnataraj", icon: FiLinkedin },
-              { label: "Email", href: "mailto:mnataraj@example.com", icon: FiMail },
+              { label: "GitHub", href: profile.github, icon: FiGithub },
+              { label: "LinkedIn", href: profile.linkedin, icon: FiLinkedin },
+              { label: "Email", href: `mailto:${profile.email}`, icon: FiMail },
             ].map(({ label, href, icon: Icon }) => (
               <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="grid h-10 w-10 place-items-center rounded-full border border-[var(--line)] text-[var(--ink-muted)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--ink)]">
                 <Icon size={15} />

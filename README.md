@@ -1,16 +1,71 @@
-# React + Vite
+# Nataraj Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio website for Nataraj M, built to present selected full-stack, backend, and data-focused projects in a clean editorial layout.
 
-Currently, two official plugins are available:
+## Repository
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+[View Source on GitHub](https://github.com/mnataraj2006/portfolio2312031)
 
-## React Compiler
+## Highlights
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Focused introduction, experience timeline, skills, certifications, and contact section
+- Featured projects with live links and GitHub references
+- Smooth section transitions and motion-driven presentation
+- Responsive layout built for desktop and mobile browsing
 
-## Expanding the ESLint configuration
+## Featured Projects
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Blood & Plasma Management System
+Full-stack platform for donor registration, inventory tracking, and emergency blood requests across donors, hospitals, and blood banks.
+
+**Stack:** React.js, Node.js, Express.js, MongoDB, JWT, Tailwind CSS, Docker
+
+### Multi-Domain On-Demand Services Platform
+Service marketplace for customer-provider workflows with bookings, analytics, and operational dashboards.
+
+**Stack:** React.js, Node.js, Express.js, MongoDB, REST APIs, JWT, Power BI, AWS
+
+### Sunday Hikers Dashboard
+Data-driven hiking dashboard built from scraped trekking data and visualized through interactive analytics.
+
+**Stack:** Python, FastAPI, BeautifulSoup, Pandas, Chart.js, HTML, CSS, JavaScript
+
+## Tech Stack
+
+- React.js
+- Vite
+- JavaScript
+- Tailwind CSS
+- Framer Motion
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+```
+
+## Project Structure
+
+```text
+src/
+  components/
+  data/
+  sections/
+public/
+```
+
+## About Me
+
+I am a Computer Science Engineering student focused on full-stack development, backend systems, dashboards, and product-minded implementation. I enjoy building interfaces that stay clear, structured, and practical while the underlying system remains easy to extend.
+
+## Contact
+
+- GitHub: [mnataraj2006](https://github.com/mnataraj2006)
+- Email: 2312031@nec.edu.in

@@ -22,11 +22,8 @@ const Certifications = () => (
 
         <div className="border-y border-[var(--line-soft)]">
           {certifications.map((cert, index) => (
-            <a
+            <div
               key={cert.id}
-              href={cert.link}
-              target="_blank"
-              rel="noopener noreferrer"
               id={`cert-view-${cert.id}`}
               className="group grid grid-cols-[3.5rem_1fr_auto] items-center gap-5 border-b border-[var(--line-soft)] py-6 last:border-b-0"
             >
@@ -35,8 +32,22 @@ const Certifications = () => (
                 <span className="block text-lg font-bold tracking-[-0.025em] text-[var(--ink-soft)] transition-colors group-hover:text-[var(--ink)]">{cert.title}</span>
                 <span className="mt-1 block text-xs font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">{cert.platform} / {cert.date}</span>
               </span>
-              <FiArrowUpRight className="text-[var(--ink-faint)] transition-colors group-hover:text-[var(--ink)]" size={17} />
-            </a>
+              {cert.link ? (
+                <a
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--ink-faint)] transition-colors group-hover:text-[var(--ink)]"
+                  aria-label={`Open ${cert.title}`}
+                >
+                  <FiArrowUpRight size={17} />
+                </a>
+              ) : (
+                <span className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-[var(--ink-faint)]">
+                  Completed
+                </span>
+              )}
+            </div>
           ))}
         </div>
       </motion.div>

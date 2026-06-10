@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { profile } from "../data/profile";
 
 const fade = {
   hidden: { opacity: 0, y: 22 },
@@ -30,10 +31,7 @@ const About = () => (
           <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-[1fr_0.72fr] md:items-start">
             <motion.div variants={fade} initial="hidden" whileInView="visible" viewport={viewport} className="space-y-8">
               <p className="quiet-copy text-[var(--ink-soft)]">
-                I am a Computer Science Engineering student focused on full stack development,
-                backend systems, and product-minded implementation. I like turning ambiguous ideas
-                into interfaces with clear hierarchy, reliable data flow, and code that remains easy
-                to extend after the first release.
+                {profile.about}
               </p>
               <p className="quiet-copy">
                 My work usually sits where UI craft meets system design: React applications, REST
@@ -85,4 +83,3 @@ const About = () => (
 );
 
 export default About;
-

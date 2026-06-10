@@ -2,10 +2,14 @@ import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FiArrowUpRight, FiCheck, FiGithub, FiLinkedin, FiMail, FiSend } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
+import { profile } from "../data/profile";
 
 const EMAILJS_SERVICE = "YOUR_SERVICE_ID";
 const EMAILJS_TEMPLATE = "YOUR_TEMPLATE_ID";
 const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const isEmailJsConfigured = ![EMAILJS_SERVICE, EMAILJS_TEMPLATE, EMAILJS_PUBLIC_KEY].some((value) =>
+  value.startsWith("YOUR_")
+);
 
 const fade = {
   hidden: { opacity: 0, y: 24 },
@@ -45,6 +49,14 @@ const Contact = () => {
     }
 
     setStatus("sending");
+    if (!isEmailJsConfigured) {
+      const subject = encodeURIComponent(`Portfolio inquiry from ${form.name}`);
+      const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
+      window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
+      setStatus("idle");
+      return;
+    }
+
     try {
       await emailjs.send(
         EMAILJS_SERVICE,
@@ -81,9 +93,9 @@ const Contact = () => {
 
             <div className="mt-12 grid max-w-[720px] grid-cols-1 gap-px overflow-hidden border border-[var(--line-soft)] bg-[var(--line-soft)] sm:grid-cols-3">
               {[
-                { label: "Email", value: "mnataraj@example.com", href: "mailto:mnataraj@example.com", icon: FiMail },
-                { label: "GitHub", value: "mnataraj2006", href: "https://github.com/mnataraj2006", icon: FiGithub },
-                { label: "LinkedIn", value: "mnataraj", href: "https://linkedin.com/in/mnataraj", icon: FiLinkedin },
+                { label: "Email", value: profile.email, href: `mailto:${profile.email}`, icon: FiMail },
+                { label: "GitHub", value: "mnataraj2006", href: profile.github, icon: FiGithub },
+                { label: "LinkedIn", value: "linkedin.com/in/mnataraj", href: profile.linkedin, icon: FiLinkedin },
               ].map(({ label, value, href, icon: Icon }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="group bg-[#101011] p-5">
                   <Icon size={17} className="text-[var(--ink-muted)]" />
@@ -107,7 +119,7 @@ const Contact = () => {
             )}
             {status === "error" && (
               <div className="mb-6 border border-[var(--line)] bg-white/[0.025] p-3 text-sm text-[var(--ink-muted)]">
-                Something went wrong. Email me directly at mnataraj@example.com.
+                Something went wrong. Email me directly at {profile.email}.
               </div>
             )}
 

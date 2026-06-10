@@ -3,6 +3,7 @@ import { Link } from "react-scroll";
 import { FiArrowUpRight, FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import { HiArrowDownTray } from "react-icons/hi2";
 import profilePic from "../pic.jpeg";
+import { profile } from "../data/profile";
 
 const fade = {
   hidden: { opacity: 0, y: 24 },
@@ -13,14 +14,6 @@ const stagger = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.08 } },
 };
-
-const codeLines = [
-  "const product = await build({",
-  "  ui: 'precise',",
-  "  api: 'resilient',",
-  "  ship: true",
-  "});",
-];
 
 const Hero = () => (
   <section id="hero" className="relative min-h-[100svh] overflow-hidden pt-28 lg:pt-32">
@@ -33,17 +26,16 @@ const Hero = () => (
       >
         <div className="relative z-10 max-w-[860px]">
           <motion.p variants={fade} className="section-kicker mb-8" style={{ color: "#A1A1AA" }}>
-            FullStack Developer / Data Analyst
+            {profile.role}
           </motion.p>
 
           <motion.h1 variants={fade} className="display-type">
-            M. Nataraj
+            {profile.name}
           </motion.h1>
 
           <motion.div variants={fade} className="mt-9 grid max-w-[720px] grid-cols-1 gap-6 border-l border-[var(--line)] pl-6 md:grid-cols-[1fr_auto] md:items-end">
             <p className="max-w-[500px] text-sm leading-relaxed" style={{ color: "#A1A1AA" }}>
-              I am M. Nataraj, a full stack developer shaping responsive interfaces,
-              clean APIs, and practical systems that move from prototype to shipped product.
+              {profile.shortBio}
             </p>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -52,17 +44,19 @@ const Hero = () => (
                   View work <FiArrowUpRight size={15} />
                 </button>
               </Link>
-              <a id="hero-download-resume" href="/resume.pdf" download className="micro-button">
-                <HiArrowDownTray size={15} /> Resume
-              </a>
+              {profile.resumePath && (
+                <a id="hero-download-resume" href={profile.resumePath} download className="micro-button">
+                  <HiArrowDownTray size={15} /> Resume
+                </a>
+              )}
             </div>
           </motion.div>
 
           <motion.div variants={fade} className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-4">
             {[
-              { label: "GitHub", href: "https://github.com/mnataraj2006", icon: FiGithub },
-              { label: "LinkedIn", href: "https://linkedin.com/in/mnataraj", icon: FiLinkedin },
-              { label: "Email", href: "mailto:mnataraj2108@gmail.com", icon: FiMail },
+              { label: "GitHub", href: profile.github, icon: FiGithub },
+              { label: "LinkedIn", href: profile.linkedin, icon: FiLinkedin },
+              { label: "Email", href: `mailto:${profile.email}`, icon: FiMail },
             ].map(({ label, href, icon: Icon }) => (
               <a
                 key={label}
@@ -155,7 +149,7 @@ const Hero = () => (
                   style={{ background: "#A1A1AA" }}
                 />
                 <span className="text-xs font-medium whitespace-nowrap" style={{ color: "#A1A1AA" }}>
-                  Open to work
+                  {profile.availability}
                 </span>
               </div>
             </div>
@@ -167,4 +161,3 @@ const Hero = () => (
 );
 
 export default Hero;
-
